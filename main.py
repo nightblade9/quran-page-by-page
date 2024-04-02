@@ -59,7 +59,7 @@ class Main:
         # Final page goes in final surah
         surahs.append(current_surah)
 
-        #self.write_list_of_pages(pages)
+        self.write_list_of_pages(pages)
         self.write_surah_pages_index(surahs)
 
     def write_list_of_pages(self, pages):
@@ -68,16 +68,7 @@ class Main:
             file_handle.write('[') # top-level array
             
             for page in pages:
-                file_handle.write('[') # page start
-                quoted_lines = [f'"{x}"' for x in page]
-
-                for line in quoted_lines:
-                    file_handle.write(line)
-
-                    if not line == quoted_lines[len(quoted_lines) - 1]:
-                        file_handle.write(", ") # between lines
-                
-                file_handle.write(']') # page end
+                file_handle.write(json.dumps(page, ensure_ascii=False))
 
                 if not page == pages[len(pages) - 1]:
                     file_handle.write(', ') # between pages
