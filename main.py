@@ -41,7 +41,6 @@ class Main:
                 if page_number not in current_surah:
                     current_surah.append(page_number)
             else:
-                #surahs.append(current_surah)
                 surah_data = {
                     "arabicName": current_surah_name["arabic"],
                     "englishName": current_surah_name["english"],
@@ -56,8 +55,16 @@ class Main:
         
         # Final ayah goes on the final page
         pages.append(current_page)
-        # Final page goes in final surah
-        surahs.append(current_surah)
+        
+        # Final surah goes in the list
+        surah_data = {
+            "arabicName": current_surah_name["arabic"],
+            "englishName": current_surah_name["english"],
+            "startPage": current_surah[0],
+            "endPage": current_surah[len(current_surah) - 1]
+        }
+
+        surahs.append(surah_data)
 
         self.write_list_of_pages(pages)
         self.write_surah_pages_index(surahs)
