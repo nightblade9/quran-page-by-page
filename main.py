@@ -22,6 +22,7 @@ class Main:
         surahs = [] # 114 entries
         current_surah = [] # list of pages, e.g. [2, 3, 4]
         current_surah_number = 1
+        current_surah_name = {"english": "Al-Faatiha", "arabic": "ٱلْفَاتِحَةِ"}
 
         # Collect each page's data
         for ayah in data:
@@ -40,9 +41,18 @@ class Main:
                 if page_number not in current_surah:
                     current_surah.append(page_number)
             else:
-                surahs.append(current_surah)
+                #surahs.append(current_surah)
+                surah_data = {
+                    "arabicName": current_surah_name["arabic"],
+                    "englishName": current_surah_name["english"],
+                    "startPage": current_surah[0],
+                    "endPage": current_surah[len(current_surah) - 1]
+                }
+
+                surahs.append(surah_data)
                 current_surah = []
                 current_surah_number = surah_number
+                current_surah_name = {"english": ayah["surah"]["englishName"], "arabic": ayah["surah"]["name"]}
         
         # Final ayah goes on the final page
         pages.append(current_page)
@@ -90,11 +100,11 @@ class Main:
         print("Confirmed: file is parsable as JSON.")
 
     def write_surah_pages_index(self, surahs):
-         with open(Main._SURAHS_OUTPUT_FILE, 'w') as file_handle:
+         with open(Main._SURAHS_OUTPUT_FILE, 'w', encoding='utf-8') as file_handle:
             file_handle.write('[') # top-level array
 
             for surah in surahs:
-                file_handle.write(json.dumps(surah))
+                file_handle.write(json.dumps(surah, ensure_ascii=False))
                 if not surah == surahs[len(surahs) - 1]:
                     file_handle.write(', ') # between surahs
 
