@@ -37,7 +37,7 @@ class Main:
 
             if page_number == current_page_number:
                 current_page.append(arabic)
-                annotated_pages.append({"arabic": arabic, "ayahNumber": ayah_number})
+                annotated_page.append({"arabic": arabic, "ayahNumber": ayah_number})
             else:
                 # Outputs the text and the starting ayah number
                 pages.append(current_page)
@@ -65,7 +65,7 @@ class Main:
         
         # Final ayah goes on the final page
         pages.append(current_page)
-        
+
         # Final surah goes in the list
         surah_data = {
             "arabicName": current_surah_name["arabic"],
@@ -81,6 +81,8 @@ class Main:
         self.write_surah_pages_index(surahs)
 
     def write_list_of_pages(self, output_filename, pages):
+        pages = [x for x in pages if x != []] # sneaky little []s need to be removed
+
         # Write the output, taking care to quote it properly
         with open(output_filename, 'w', encoding='utf-8') as file_handle:
             file_handle.write('[') # top-level array
