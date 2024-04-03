@@ -29,13 +29,19 @@ class Main:
             arabic = ayah["uthmaniText"]
             page_number = ayah["page"]
             surah_number = ayah["surah"]["number"]
+            ayah_number = ayah["numberInSurah"]
 
             if page_number == current_page_number:
                 current_page.append(arabic)
             else:
-                pages.append(current_page)
+                # Outputs a raw page with no metadata
+                # pages.append(current_page)
+
+                # Outputs the text and the starting ayah number
+                pages.append({"startingAyah": ayah_number, "text": current_page})
                 current_page = []
                 current_page_number = page_number
+                ayah_number = ayah["numberInSurah"]
             
             if surah_number == current_surah_number:
                 if page_number not in current_surah:
