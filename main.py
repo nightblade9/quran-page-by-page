@@ -65,6 +65,7 @@ class Main:
         
         # Final ayah goes on the final page
         pages.append(current_page)
+        annotated_pages.append(annotated_page)
 
         # Final surah goes in the list
         surah_data = {
