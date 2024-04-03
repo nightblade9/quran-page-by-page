@@ -39,6 +39,7 @@ class Main:
                 current_page.append(arabic)
                 annotated_pages.append({"arabic": arabic, "ayahNumber": ayah_number})
             else:
+                # Outputs the text and the starting ayah number
                 pages.append(current_page)
                 current_page = []
                 current_page_number = page_number
@@ -64,7 +65,6 @@ class Main:
         
         # Final ayah goes on the final page
         pages.append(current_page)
-        annotated_pages.append(annotated_page)
         
         # Final surah goes in the list
         surah_data = {
@@ -93,20 +93,13 @@ class Main:
         
             file_handle.write(']') # top-level array
         
-        print(f"Done {len(pages)} pages; check out {Main._OUTPUT_FILE}.")
+        print(f"Done {len(pages)} pages; check out {output_filename}.")
 
-        # Massage the final output to remove any JSON errors.
-        # Fix a bug where we get double-double-quotes, ("") for some reason...
-        with open(Main._OUTPUT_FILE, 'r', encoding='utf-8') as file_handle:
-            raw = file_handle.read()
-        raw = raw.replace('""', '", "')
-        with open(Main._OUTPUT_FILE, 'w', encoding='utf-8') as file_handle:
-            file_handle.write(raw)
 
         # TEST IT: load it back and verify that we can parse it (valid JSON)
-        with open(Main._OUTPUT_FILE, 'r', encoding='utf-8') as file_handle:
+        with open(output_filename, 'r', encoding='utf-8') as file_handle:
             data = json.load(file_handle)
-        print("Confirmed: file is parsable as JSON.")
+        print(f"Confirmed: {output_filename} is parsable as JSON.")
 
     def write_surah_pages_index(self, surahs):
          with open(Main._SURAHS_OUTPUT_FILE, 'w', encoding='utf-8') as file_handle:
