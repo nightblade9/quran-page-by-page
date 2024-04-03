@@ -41,11 +41,11 @@ class Main:
             else:
                 # Outputs the text and the starting ayah number
                 pages.append(current_page)
-                current_page = []
+                current_page = [arabic]
                 current_page_number = page_number
 
                 annotated_pages.append(annotated_page)
-                annotated_page = []
+                annotated_page = [{"arabic": arabic, "ayahNumber": ayah_number}]
             
             if surah_number == current_surah_number:
                 if page_number not in current_surah:
