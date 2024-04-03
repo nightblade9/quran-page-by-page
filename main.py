@@ -26,7 +26,7 @@ class Main:
         surahs = [] # 114 entries
         current_surah = [] # list of pages, e.g. [2, 3, 4]
         current_surah_number = 1
-        current_surah_name = {"english": "Al-Faatiha", "arabic": "ٱلْفَاتِحَةِ"}
+        current_surah_name = {"english": "Al-Faatiha", "arabic": "سُورَةُ ٱلْفَاتِحَةِ"}
 
         # Collect each page's data
         for ayah in data:
